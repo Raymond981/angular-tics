@@ -1,0 +1,73 @@
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="/home">
+        <img src="https://img.icons8.com/officel/80/000000/shop.png" width="30" height="30"
+            class="d-inline-block align-top" alt="">
+        Piticó
+    </a>
+    <button class="btn btn-primary" (click)="verInventario()">Ver Inventario</button>
+</nav>
+
+<div class="container">
+
+    <div *ngIf="!btn">
+        <form [formGroup]="edit_sale">
+            <div class="form-group">
+                <label for="exampleInputCodigo">Cantidad: </label>
+                <input type="text" class="form-control" formControlName="quantity"
+                    placeholder="Ingrese la cantidad de venta">
+                <small class="form-text text-muted">Cantidad de venta.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputCodigo">Descuento: </label>
+                <input type="text" class="form-control" formControlName="discount" aria-describedby="typeHelp"
+                    placeholder="Ingrese el descuento de la venta">
+                <small id="typeHelp" class="form-text text-muted">Descuento de la venta.</small>
+            </div>
+
+
+            <div class="form-group">
+                <label for="exampleInputCodigo">Total: </label>
+                <input type="text" class="form-control" formControlName="total" aria-describedby="typeHelp"
+                    placeholder="Ingrese el total de la venta">
+                <small id="typeHelp" class="form-text text-muted">Total de la venta.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputCodigo">Estado: </label>
+                <input type="text" class="form-control" formControlName="status" aria-describedby="typeHelp"
+                    placeholder="Ingrese el estado de la venta">
+                <small id="typeHelp" class="form-text text-muted">Estado de la venta.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputCodigo">Metodo de pago: </label>
+                <input type="text" class="form-control" formControlName="payment_method" aria-describedby="typeHelp"
+                    placeholder="Ingrese el metodo de pago de la venta">
+                <small id="typeHelp" class="form-text text-muted">Metodo de pago de la venta.</small>
+            </div>
+
+            <button class="btn btn-info" (click)="updateSale()">Modificar</button>
+        </form>
+    </div>
+
+    <table class="table table-sm table-responsive">
+        <thead class="thead-dark">
+            <tr>
+                <th *ngFor="let head of salesList[0] | sales">{{head}}</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let sale of salesList">
+                <th *ngFor="let list of sale | sales">{{sale[list]}}</th>
+                <td><!--<button class="btn btn-danger" (click)="eliminar(transaction.id)" *ngIf="rol == 1">Eliminar</button>-->
+                    <button type="button" class="btn btn-info button-separation" (click)="modificarTransaccion(sale)" *ngIf="sale.status != 3">Modificar</button>
+                    <button type="button" class="btn btn-warning" (click)="solicitarCancelacion(sale)" *ngIf="rol == 2 && sale.status == 1" [disabled]="sale.status == 2">Cancelar</button>
+                    <button type="button" class="btn btn-warning" (click)="confirmarCancelacion(sale)" *ngIf="rol == 1 && sale.status == 2">Confirmar cancelacion</button>    
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

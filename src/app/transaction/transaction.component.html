@@ -1,0 +1,48 @@
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="/inventory">
+    <img src="https://img.icons8.com/officel/80/000000/shop.png" width="30" height="30" class="d-inline-block align-top"
+      alt="">
+    Piticó
+  </a>
+  <button class="btn btn-primary" (click)="verInventario()">Ver Inventario</button>
+</nav>
+
+<div class="container text-center">
+
+  <div *ngIf="!btn">
+    <form [formGroup]="edit_transaction">
+      <div class="form-group">
+        <label for="exampleInputCodigo">Tipo: </label>
+        <input type="text" class="form-control" formControlName="type" aria-describedby="typeHelp"
+          placeholder="Ingrese el tipo de transaction">
+        <small id="typeHelp" class="form-text text-muted">Tipo de transacción.</small>
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputCodigo">Cantidad: </label>
+        <input type="text" class="form-control" formControlName="quantity" aria-describedby="quantityHelp"
+          placeholder="Ingrese la cantidad de producto.">
+        <small id="quantityHelp" class="form-text text-muted">Cantidad de producto</small>
+      </div>
+      <button type="submit" class="btn btn-primary" (click)="updateTransaction()" *ngIf="!btn">Modificar</button>
+    </form>
+    <hr>
+  </div>
+
+  <table class="table table-sm table-responsive">
+    <thead class="thead-dark">
+      <tr>
+        <th *ngFor="let head of listaTransactions[0] | transactions">{{head}}</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let transaction of listaTransactions">
+        <th *ngFor="let list of transaction | transactions">{{transaction[list]}}</th>
+        <td><button class="btn btn-danger" (click)="eliminar(transaction.id)">Eliminar</button>
+          <button type="button" class="btn btn-info button-separation"
+            (click)="modificarTransaccion(transaction)">Modificar</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

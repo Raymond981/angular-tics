@@ -1,0 +1,73 @@
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="/home">
+    <img src="https://img.icons8.com/officel/80/000000/shop.png" width="30" height="30" class="d-inline-block align-top"
+      alt="">
+    Piticó
+  </a>
+  <button class="btn btn-primary" (click)="verInventario()">Ver Inventario</button>
+</nav>
+
+<div class="container">
+  <form [formGroup]="create_product" (ngSubmit)="guardar()">
+    <div class="form-group">
+      <label for="exampleInputCodigo">Codigo </label>
+      <input type="text" class="form-control" formControlName="code" aria-describedby="codigoHelp"
+        placeholder="Ingrese el codigo">
+      <small id="codigoHelp" class="form-text text-muted">Codigo del producto.</small>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputNombre">Nombre</label>
+      <input type="text" class="form-control" formControlName="name" aria-describedby="nombreHelp"
+        placeholder="Ingrese el nombre del producto">
+      <small id="nombreHelp" class="form-text text-muted">Nombre del producto.</small>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputDescripcion">Descripción </label>
+      <input type="text" class="form-control" formControlName="description" aria-describedby="descripcionHelp"
+        placeholder="Ingrese la descripción del producto">
+      <small id="descripcionHelp" class="form-text text-muted">Descripción del producto.</small>
+    </div>
+
+    <div>
+      <label for="exampleInputCantidad">Cantidad</label>
+      <input type="number" class="form-control" formControlName="quantity" aria-describedby="cantidadHelp"
+        placeholder="Ingrese la cantidad">
+      <small id="cantidadHelp" class="form-text text-muted">Cantidad de productos.</small>
+    </div>
+
+    <div class="form-group">
+      <label for="exampleInputPrecio">Precio </label>
+      <input type="number" class="form-control" formControlName="price" aria-describedby="precioHelp"
+        placeholder="Ingrese el precio">
+      <small id="precioHelp" class="form-text text-muted">Precio del producto.</small>
+    </div>
+
+    <div class="form-group">
+      <label for="exampleInputTax">Tax</label>
+      <input type="number" class="form-control" formControlName="tax" aria-describedby="taxHelp"
+        placeholder="Ingrese el tax del producto">
+      <small id="taxHelp" class="form-text text-muted">Tax del producto.</small>
+    </div>
+
+    <div class="file has-name is-boxed">
+      <label class="file-label">
+        <input class="file-input" type="file" formControlName="archivo" (change)="cambioArchivo($event)">
+        <span class="file-cta">
+          <span class="file-label">
+            Elegir un archivo…
+          </span>
+        </span>
+        <span class="file-name">
+          {{ mensajeArchivo }}
+        </span>
+      </label>
+    </div>
+
+    <hr>
+    <progress *ngIf="porcentaje > 0 && porcentaje < 100" class="progress is-large is-success" value="{{porcentaje}}"
+      max="100">{{porcentaje}}%</progress>
+    <button [disabled]="!create_product.valid && (porcentaje > 0 && porcentaje < 100)" class="btn btn-primary">Subir
+      archivo</button>
+
+  </form>
+</div>
